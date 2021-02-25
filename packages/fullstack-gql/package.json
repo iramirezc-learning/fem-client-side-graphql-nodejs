@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@playlyfe/gql": "^2.6.2",
+    "apollo-client-devtools": "^2.3.5",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
