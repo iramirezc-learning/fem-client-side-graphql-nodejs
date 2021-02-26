@@ -10,3 +10,14 @@ export const FETCH_PETS = gql`
     }
   }
 `;
+
+export const CREATE_PET = gql`
+  mutation CreatePet($newPet: NewPetInput!) {
+    addPet(input: $newPet) {
+      id
+      name
+      type
+      img
+    }
+  }
+`;

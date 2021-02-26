@@ -4,24 +4,42 @@ import PetsList from "../components/PetsList";
 import NewPetModal from "../components/NewPetModal";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-import { FETCH_PETS } from "../graphql/queries";
+import { FETCH_PETS, CREATE_PET } from "../graphql/queries";
 
 export default function Pets() {
   const [modal, setModal] = useState(false);
-  const { data, loading, error } = useQuery(FETCH_PETS);
+  const query = useQuery(FETCH_PETS);
+  const [createPet, mutation] = useMutation(CREATE_PET);
+
+  const loading = query.loading || mutation.loading;
+  const error = query.error || mutation.error;
 
   if (loading) return <Loader />;
   if (error) return <Error error={error} />;
 
+  const newPet = mutation.data && mutation.data.addPet;
+  const pets = [...query.data.pets];
+
+  if (newPet) pets.push(newPet);
+
   const onSubmit = (input) => {
+    const { name, type } = input;
+
+    createPet({
+      variables: {
+        newPet: {
+          name,
+          type,
+        },
+      },
+    });
+
     setModal(false);
   };
 
   if (modal) {
     return <NewPetModal onSubmit={onSubmit} onCancel={() => setModal(false)} />;
   }
-
-  const { pets } = data;
 
   return (
     <div className="page pets-page">
