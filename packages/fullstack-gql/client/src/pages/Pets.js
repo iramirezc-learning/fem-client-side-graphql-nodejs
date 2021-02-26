@@ -9,7 +9,18 @@ import { FETCH_PETS, CREATE_PET } from "../graphql/queries";
 export default function Pets() {
   const [modal, setModal] = useState(false);
   const query = useQuery(FETCH_PETS);
-  const [createPet, mutation] = useMutation(CREATE_PET);
+  const [createPet, mutation] = useMutation(CREATE_PET, {
+    update(cache, { data: { addPet } }) {
+      const { pets } = cache.readQuery({ query: FETCH_PETS });
+
+      cache.writeQuery({
+        query: FETCH_PETS,
+        data: {
+          pets: [...pets, addPet],
+        },
+      });
+    },
+  });
 
   const loading = query.loading || mutation.loading;
   const error = query.error || mutation.error;
@@ -17,10 +28,7 @@ export default function Pets() {
   if (loading) return <Loader />;
   if (error) return <Error error={error} />;
 
-  const newPet = mutation.data && mutation.data.addPet;
-  const pets = [...query.data.pets];
-
-  if (newPet) pets.push(newPet);
+  const { pets } = query.data;
 
   const onSubmit = (input) => {
     const { name, type } = input;
