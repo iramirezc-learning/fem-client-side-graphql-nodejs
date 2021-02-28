@@ -2,8 +2,6 @@
 
 This is my personal repository for the course [Client-Side GraphQL in Node.js](https://frontendmasters.com/courses/client-graphql-react/) hosted by [FrontEnd Masters](https://frontendmasters.com/).
 
-> 🚧 WIP Since Feb 2021
-
 ## Course Details
 
 Teacher
@@ -26,11 +24,11 @@ Started On
 
 Completed On
 
-> ???
+> Feb 28, 2021
 
 Total Pomodoro Time
 
-> ???
+> 7 hours, 5 minutes
 
 ## Course Resources
 
