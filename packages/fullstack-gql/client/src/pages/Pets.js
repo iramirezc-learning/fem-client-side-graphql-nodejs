@@ -6,6 +6,10 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import { FETCH_PETS, CREATE_PET } from "../graphql/queries";
 
+const getOptimisticId = () => Math.floor(Math.random() * 1000000000);
+const getOptimisticImg = () => "https://via.placeholder.com/300";
+const getOptimisticAge = () => Math.floor(Math.random() * 100);
+
 export default function Pets() {
   const [modal, setModal] = useState(false);
   const query = useQuery(FETCH_PETS);
@@ -43,11 +47,16 @@ export default function Pets() {
       optimisticResponse: {
         __typename: "Mutation",
         addPet: {
-          id: String(Math.random()),
+          __typename: "Pet",
+          id: getOptimisticId(),
           name,
           type,
-          img: "https://via.placeholder.com/300",
-          __typename: "Pet",
+          img: getOptimisticImg(),
+          owner: {
+            __typename: "User",
+            id: getOptimisticId(),
+            age: getOptimisticAge(),
+          },
         },
       },
     });

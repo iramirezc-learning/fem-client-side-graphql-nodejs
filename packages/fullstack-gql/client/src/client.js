@@ -5,6 +5,23 @@ import { ApolloLink } from "apollo-link";
 import { setContext } from "apollo-link-context";
 import gql from "graphql-tag";
 
+// START: logic to extend the server with a directive
+const typeDefs = gql`
+  extend type User {
+    age: Int
+  }
+`;
+
+const resolvers = {
+  User: {
+    age() {
+      // for now just return any random age
+      return Math.floor(Math.random() * 60);
+    },
+  },
+};
+// END: logic to extend the server with a directive
+
 /**
  * Create a new apollo client and export as default
  */
@@ -23,7 +40,7 @@ const link = ApolloLink.from([delay, httpLink]);
 // END: logic to make te server slower
 
 const cache = new InMemoryCache();
-const client = new ApolloClient({ link, cache });
+const client = new ApolloClient({ link, cache, typeDefs, resolvers });
 
 // How to test it?
 //

@@ -7,6 +7,10 @@ export const FETCH_PETS = gql`
       name
       type
       img
+      owner {
+        id
+        age @client
+      }
     }
   }
 `;
@@ -18,6 +22,10 @@ export const CREATE_PET = gql`
       name
       type
       img
+      owner {
+        id
+        age @client
+      }
     }
   }
 `;
