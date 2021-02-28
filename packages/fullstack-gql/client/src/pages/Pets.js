@@ -8,7 +8,8 @@ import { FETCH_PETS, CREATE_PET } from "../graphql/queries";
 
 const getOptimisticId = () => Math.floor(Math.random() * 1000000000);
 const getOptimisticImg = () => "https://via.placeholder.com/300";
-const getOptimisticAge = () => Math.floor(Math.random() * 100);
+const getOptimisticBoolean = () => false;
+const getOptimisticOwnerAge = () => Math.floor(Math.random() * 100);
 
 export default function Pets() {
   const [modal, setModal] = useState(false);
@@ -52,10 +53,11 @@ export default function Pets() {
           name,
           type,
           img: getOptimisticImg(),
+          isVaccinated: getOptimisticBoolean(),
           owner: {
             __typename: "User",
             id: getOptimisticId(),
-            age: getOptimisticAge(),
+            age: getOptimisticOwnerAge(),
           },
         },
       },

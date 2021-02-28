@@ -10,13 +10,23 @@ const typeDefs = gql`
   extend type User {
     age: Int
   }
+
+  extend type Pet {
+    isVaccinated: Boolean
+  }
 `;
 
 const resolvers = {
   User: {
     age() {
-      // for now just return any random age
+      // just for now return any random age
       return Math.floor(Math.random() * 60);
+    },
+  },
+  Pet: {
+    isVaccinated() {
+      // just for now return any random boolean
+      return Math.random() < 0.7;
     },
   },
 };

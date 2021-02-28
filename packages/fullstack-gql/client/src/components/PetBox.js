@@ -1,7 +1,7 @@
 import React from "react";
 
 const PetBox = ({ pet }) => {
-  const { id, name, type, img, owner } = pet;
+  const { id, name, type, img, isVaccinated, owner } = pet;
 
   return (
     <div className="pet">
@@ -10,6 +10,12 @@ const PetBox = ({ pet }) => {
       </figure>
       <div className="pet-name">{name}</div>
       <div className="pet-type">{type}</div>
+      <div
+        className="pet-vaccinated"
+        style={{ color: isVaccinated ? "black" : "red" }}
+      >
+        {isVaccinated ? "" : "NOT "}VACCINATED
+      </div>
       <hr />
       <div className="pet-owner">
         <div className="pet-owner-id">
