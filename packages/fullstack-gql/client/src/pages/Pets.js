@@ -16,13 +16,13 @@ export default function Pets() {
       cache.writeQuery({
         query: FETCH_PETS,
         data: {
-          pets: [...pets, addPet],
+          pets: [addPet, ...pets],
         },
       });
     },
   });
 
-  const loading = query.loading || mutation.loading;
+  const { loading } = query;
   const error = query.error || mutation.error;
 
   if (loading) return <Loader />;
@@ -38,6 +38,16 @@ export default function Pets() {
         newPet: {
           name,
           type,
+        },
+      },
+      optimisticResponse: {
+        __typename: "Mutation",
+        addPet: {
+          id: String(Math.random()),
+          name,
+          type,
+          img: "https://via.placeholder.com/300",
+          __typename: "Pet",
         },
       },
     });
